@@ -1,0 +1,37 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
+  font-family: "Press Start 2P", cursive;
+  background-color: black;
+  color: brown;
+  font-size: 24px;
+}
+
+/* .container {
+  text-align: center;
+} */
+
+a {
+  text-decoration: none;
+  color: brown;
+  margin: 20px;
+}
+
+.play-again {
+  display: flex;
+  justify-content: center;
+}
+
+.play-again a:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+h1 {
+  margin-top: 200px;
+  font-size: 96px;
+}

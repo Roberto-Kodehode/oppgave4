@@ -1,32 +1,74 @@
+//global variables
 let highestPossibleGuess = 666;
 const randomNumber = Math.floor(Math.random() * highestPossibleGuess + 1); // random number betweeen 1 and 666.
 let guessCount = 0;
 let gameOver = false;
-
+let lifeCounter = 10;
+let score = 0;
+const scoreMultiplier = 1000;
 console.log(randomNumber);
 
-function randomNumberGuesser() {
-  if (gameOver) return;
-  let guessInput = document.getElementById("guessInput").value; // input from user.
+// lifecounter decrease
+function lifeCounterDecrease() {
+  lifeCounter--;
+  document.getElementById("life-counter").textContent = `Soul x ${lifeCounter}`;
+}
 
-  if (guessInput <= 0 || guessInput > highestPossibleGuess)
-    // if number is 0 or under, or over highespossibleguess
-    document.getElementById("random-number").textContent = "Invalid value!";
-  else if (guessInput == randomNumber) {
+function createNewGame(event) {
+  event.preventDefault();
+  createButton.onclick = window.location.reload();
+}
+
+function createButton() {
+  createButton = document.createElement("button");
+  createButton.textContent = "START NEW GAME?";
+  createButton.addEventListener("click", createNewGame);
+  document.getElementById("start-new-game").appendChild(createButton);
+}
+
+function randomNumberGuesser() {
+  const guessInput = document.getElementById("guess-input").value; // input from user.
+
+  if (gameOver) return;
+
+  if (guessInput == randomNumber) {
     gameOver = true; // game ends when user guesses right
-    guessCount = guessCount + 1; // number of guesses increases
-    document.getElementById("random-number").style.color = "#008000"; // changes color to green when correct
+    guessCount++; // number of guesses increases
+    score = lifeCounter * scoreMultiplier;
+
+    document.getElementById("victory").style.color = "#008000"; // changes color to green when correct
+    document.getElementById("victory").textContent = "CONGRATULATIONS!";
+
+    document.getElementById("souls").style.color = "#008000"; // changes color to green when correct
     document.getElementById(
-      "random-number"
-    ).textContent = `You guessed right in ${guessCount} attempts!`;
+      "souls"
+    ).textContent = `You made it out of hell in ${guessCount} attempt(s)!`;
+    document.getElementById("random-number").textContent = "";
+    document.getElementById("start-new-game").textContent = "";
+    document.getElementById("score").textContent = `Score: ${score}`;
+    // erase guess input and button
+    document.getElementById("guess-container").remove();
+    // start new game button
+    createButton();
+  } else if (lifeCounter === 1) {
+    gameOver = true;
+    window.location = "gameover.html";
+  } else if (guessInput <= 0 || guessInput > highestPossibleGuess) {
+    // if guess is 0 or under, or over highespossibleguess
+    guessCount++; // number of guesses increases
+    lifeCounterDecrease();
+    document.getElementById("random-number").textContent =
+      "You're not even trying!!!";
   } else if (guessInput < randomNumber) {
     // if guessinput is too low.
-    guessCount = guessCount + 1;
+    guessCount++; // number of guesses increases
+    lifeCounterDecrease();
     document.getElementById("random-number").textContent =
       "Number is too low. Try again";
   } else {
-    guessInput > randomNumber; // else guessinput is too high.
-    guessCount = guessCount + 1;
+    // guessInput > randomNumber; // else guessinput is too high.
+    guessCount++; // number of guesses increases
+    lifeCounterDecrease();
     document.getElementById("random-number").textContent =
       "Number is too high. Try again";
   }

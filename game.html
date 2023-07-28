@@ -15,12 +15,22 @@
     <title>Numberguesser!</title>
   </head>
   <body>
-    <h1>Guess the number!</h1>
-    <h5>Guess a number between 1 and 666 to get out of hell!</h5>
-    <input type="text" id="guessInput" /><br />
-    <br />
-    <button onclick="randomNumberGuesser()">Guess!</button>
+    <div class="lifescore">
+      <div>
+        <p id="life-counter">SOUL: 10</p>
+      </div>
+      <div><p id="score">SCORE: 0000</p></div>
+    </div>
+    <!--  -->
+    <h1 id="victory">WELCOME PUNY HUMAN!</h1>
+    <p id="souls">You have 10 souls to sacrifice!</p>
+    <p id="start-new-game">
+      Guess a number between 1 and 666 to get out of hell!
+    </p>
+    <div id="guess-container">
+      <input type="number" id="guess-input" />
+      <button onclick="randomNumberGuesser()">GUESS!</button>
+    </div>
     <p id="random-number"></p>
-    <button onclick="location.reload()">Start new game</button>
   </body>
 </html>
